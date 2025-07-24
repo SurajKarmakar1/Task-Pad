@@ -2,6 +2,9 @@
 
 A beautiful, minimalist todo application with dark mode support, built with Tailwind CSS and Javascript.
 
+## Link
+
+
 ## Features
 
 ✅ Add, complete, and delete tasks  
@@ -10,20 +13,6 @@ A beautiful, minimalist todo application with dark mode support, built with Tail
 ✅ Smooth animations and transitions  
 ✅ Responsive design  
 ✅ Clean, minimal interface  
-
-
-## Project Structure
-
-.\root
-├        # Main HTML file
-├── src/
-|   └──index.html        # Main HTML file
-│   └── input.css       # Tailwind input styles
-│   └── output.css      # Generated CSS (created after build)
-│   └── script.js       # Todo app functionalit
-├── package.json        # Dependencies and scripts
-└── README.md          # This file
-
 
 ## Usage
 
