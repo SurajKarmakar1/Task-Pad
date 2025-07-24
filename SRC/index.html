@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./output.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>TaskPad</title>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-white dark:bg-black text-black dark:text-white font-sans antialiased transition-colors duration-200 flex flex-col justify-center items-center min-h-screen p-4"
+  >
+    <div
+      class="bg-white dark:bg-black border border-slate-200 dark:border-slate-800 w-full max-w-md"
+      id="container"
+    >
+      <!-- Header -->
+      <div class="border-b border-slate-200 dark:border-slate-800 p-6">
+        <div class="flex items-center justify-between">
+          <h1 class="text-xl font-semibold tracking-tight">Tasks</h1>
+          <button
+            id="theme-toggle"
+            class="inline-flex items-center justify-center h-9 w-9 border border-slate-200 dark:border-slate-800 bg-white dark:bg-black hover:bg-slate-50 dark:hover:bg-slate-950 transition-colors"
+          >
+            <!-- Sun icon -->
+            <svg
+              id="sun-icon"
+              class="h-4 w-4 hidden dark:block"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="m12 2 0 2"></path>
+              <path d="m12 20 0 2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="m2 12 2 0"></path>
+              <path d="m20 12 2 0"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <!-- Moon icon -->
+            <svg
+              id="moon-icon"
+              class="h-4 w-4 block dark:hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Input section -->
+      <div class="p-6 border-b border-slate-200 dark:border-slate-800">
+        <div class="flex gap-2">
+          <input
+            class="flex-1 h-10 px-3 py-2 text-sm bg-white dark:bg-black border border-slate-200 dark:border-slate-800 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-0"
+            type="text"
+            id="todo-input"
+            placeholder="Add a new task..."
+            autocomplete="off"
+          />
+          <button
+            class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium bg-black dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+            id="add-task-btn"
+          >
+            <svg
+              class="h-4 w-4 mr-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              ></path>
+            </svg>
+            Add
+          </button>
+        </div>
+      </div>
+
+      <!-- Task list -->
+      <div class="p-6">
+        <!-- Brand section -->
+        <div
+          class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-900"
+        >
+          <!-- Notepad Logo -->
+          <div class="flex-shrink-0">
+            <svg
+              class="h-8 w-8 text-slate-400 dark:text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M16 2v4a2 2 0 002 2h4"
+              ></path>
+            </svg>
+          </div>
+          <!-- Brand Name -->
+          <div>
+            <h2
+              class="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100"
+            >
+              TaskPad
+            </h2>
+            <p
+              class="text-xs font-medium text-slate-500 dark:text-slate-400 tracking-wide uppercase"
+            >
+              Simple & Clean
+            </p>
+          </div>
+        </div>
+
+        <ul class="space-y-1" id="todo-list"></ul>
+
+        <!-- Empty state -->
+        <div
+          id="empty-state"
+          class="text-center py-8 text-slate-500 dark:text-slate-400 hidden"
+        >
+          <div
+            class="h-16 w-16 mx-auto mb-4 border border-slate-200 dark:border-slate-800 flex items-center justify-center"
+          >
+            <svg
+              class="h-8 w-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M16 2v4a2 2 0 002 2h4"
+              ></path>
+            </svg>
+          </div>
+          <p class="text-sm font-medium">No tasks yet</p>
+          <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            Your clean slate awaits
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-center">
+      <p
+        class="text-xs text-slate-500 dark:text-slate-400 font-medium https://github.com/SurajKarmakar1um"
+      >
+        made with
+        <span class="text-gray-600 mx-0.5">♥</span>
+        by
+        <a
+          href="https://github.com/SurajKarmakar1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-black dark:text-white hover:text-slate-600 dark:hover:text-slate-300 transition-colors font-semibold"
+        >
+          @SurajKarmakar
+        </a>
+      </p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
